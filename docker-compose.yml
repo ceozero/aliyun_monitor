@@ -1,0 +1,11 @@
+services:
+  aliyun-monitor:
+    image: ghcr.io/ceozero/aliyun_monitor:latest
+    container_name: aliyun-monitor
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+      # Set to "true" only when admin_users is configured in config.json.
+      ENABLE_BOT: "false"
+    volumes:
+      - ./config:/opt/scripts

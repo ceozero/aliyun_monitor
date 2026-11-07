@@ -1,0 +1,38 @@
+{
+  "telegram": {
+    "bot_token": "123456789:REPLACE_WITH_YOUR_TELEGRAM_BOT_TOKEN",
+    "chat_id": "REPLACE_WITH_YOUR_TELEGRAM_CHAT_ID"
+  },
+  "admin_users": [],
+  "bark": {
+    "bark_url": ""
+  },
+  "users": [
+    {
+      "name": "HK-Server",
+      "ak": "REPLACE_WITH_ALIBABA_CLOUD_ACCESS_KEY_ID",
+      "sk": "REPLACE_WITH_ALIBABA_CLOUD_ACCESS_KEY_SECRET",
+      "region": "cn-hongkong",
+      "instance_id": "i-REPLACE_WITH_INSTANCE_ID",
+      "traffic_limit": 180,
+      "quota": 200,
+      "bill_endpoint": "business.aliyuncs.com",
+      "currency": "¥",
+      "resgroup": "",
+      "paused": false
+    },
+    {
+      "name": "Singapore-Server",
+      "ak": "REPLACE_WITH_ALIBABA_CLOUD_INTERNATIONAL_ACCESS_KEY_ID",
+      "sk": "REPLACE_WITH_ALIBABA_CLOUD_INTERNATIONAL_ACCESS_KEY_SECRET",
+      "region": "ap-southeast-1",
+      "instance_id": "i-REPLACE_WITH_INTERNATIONAL_INSTANCE_ID",
+      "traffic_limit": 180,
+      "quota": 200,
+      "bill_endpoint": "business.ap-southeast-1.aliyuncs.com",
+      "currency": "$",
+      "resgroup": "",
+      "paused": false
+    }
+  ]
+}

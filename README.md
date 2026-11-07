@@ -165,6 +165,43 @@ systemctl stop aliyun-ecs-bot.service
 
 ---
 
+## 🐳 Docker 镜像
+
+镜像会在推送到 `main` 或推送 `v*` 标签时，由 GitHub Actions 自动构建并发布到 GHCR。已发布的镜像清单同时包含 `linux/amd64` 与 `linux/arm64`。
+
+### Docker Compose
+
+复制配置示例，填入自己的阿里云和通知凭据，再使用 Compose 启动：
+
+```bash
+mkdir config
+cp config.json.example config/config.json
+# 编辑 config/config.json，替换所有 REPLACE_WITH_* 占位符
+docker compose up -d
+```
+
+完整的 Compose 示例位于 [docker-compose.yml](./docker-compose.yml)，其会将本地 `./config` 目录挂载为容器内的 `/opt/scripts`。容器每 5 分钟运行一次监控，并在 `Asia/Shanghai` 时区每天 09:00 发送日报。
+
+配置字段示例位于 [config.json.example](./config.json.example)：
+
+- `telegram.bot_token`、`telegram.chat_id`：日报/告警 Telegram 机器人配置。
+- `users`：每个被监控的阿里云账号和 ECS 实例；示例内含中国站与国际站（新加坡）各一项，可按相同格式追加多个对象。国际站使用 `business.ap-southeast-1.aliyuncs.com` 和美元 `$`。
+- `admin_users`：Telegram 控制机器人可操作 ECS 的 Telegram 用户 ID；仅在 `ENABLE_BOT=true` 时配置。
+- `bark.bark_url`：可选的 Bark 推送地址。
+
+`config/config.json` 含有 AccessKey 和 Telegram Token，已通过 `.gitignore` 忽略，不能提交到仓库。若要启用 Telegram 控制机器人，将 [docker-compose.yml](./docker-compose.yml) 中的 `ENABLE_BOT` 改为 `"true"`，并在 `admin_users` 中填入可信用户 ID。
+
+### Docker CLI
+
+```bash
+docker pull ghcr.io/ceozero/aliyun_monitor:latest
+docker run -d --name aliyun-monitor --restart unless-stopped \
+  -v "$(pwd)/config:/opt/scripts" \
+  ghcr.io/ceozero/aliyun_monitor:latest
+```
+
+---
+
 ## 🗑️ 卸载
 
 ```bash

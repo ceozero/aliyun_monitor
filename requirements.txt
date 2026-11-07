@@ -1,0 +1,5 @@
+requests
+aliyun-python-sdk-core
+aliyun-python-sdk-ecs
+aliyun-python-sdk-bssopenapi
+python-telegram-bot[job-queue]
