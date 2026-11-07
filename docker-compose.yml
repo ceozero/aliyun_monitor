@@ -9,3 +9,14 @@ services:
       ENABLE_BOT: "false"
     volumes:
       - ./config:/opt/scripts
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"     # 限制日志大小，防止撑爆磁盘
+        max-file: "3"
+    networks:
+      - 1panel-network
+
+networks:
+  1panel-network:
+    external: true

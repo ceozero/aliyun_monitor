@@ -18,9 +18,14 @@ cat > "$CRON_FILE" <<'EOF'
 EOF
 
 if [ "${ENABLE_BOT:-false}" = "true" ]; then
-    echo "Starting Telegram bot..."
+    echo "正在启动 Telegram 控制机器人..."
     python /app/ecs_bot.py >> /opt/scripts/bot.log 2>&1 &
 fi
 
-echo "Starting scheduler (TZ=${TZ:-UTC}); monitoring runs every five minutes and reports run daily at 09:00."
+echo "容器启动完成，正在生成首次日报..."
+if ! python /app/report.py; then
+    echo "首次日报生成失败；定时监控与日报任务将继续运行。" >&2
+fi
+
+echo "正在启动定时任务（时区：${TZ:-UTC}）：每 5 分钟执行监控，每天 09:00 发送日报。"
 exec crond -f -l 2

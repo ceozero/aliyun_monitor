@@ -180,7 +180,7 @@ cp config.json.example config/config.json
 docker compose up -d
 ```
 
-完整的 Compose 示例位于 [docker-compose.yml](./docker-compose.yml)，其会将本地 `./config` 目录挂载为容器内的 `/opt/scripts`。容器每 5 分钟运行一次监控，并在 `Asia/Shanghai` 时区每天 09:00 发送日报。
+完整的 Compose 示例位于 [docker-compose.yml](./docker-compose.yml)，其会将本地 `./config` 目录挂载为容器内的 `/opt/scripts`。容器启动时会立即生成一次日报并输出到容器日志，之后每 5 分钟运行一次监控，并在 `Asia/Shanghai` 时区每天 09:00 发送日报。可使用 `docker compose logs -f aliyun-monitor` 查看输出。
 
 配置字段示例位于 [config.json.example](./config.json.example)：
 
