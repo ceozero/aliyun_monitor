@@ -232,7 +232,7 @@ def main():
                 'BillingCycle': datetime.datetime.now().strftime("%Y-%m"),
                 'InstanceID': target_id
             }
-            bill_data = do_common_request(client, 'business.aliyuncs.com', '2017-12-14', 'DescribeInstanceBill', bill_params, retries=1)
+            bill_data = do_common_request(client, bill_endpoint, '2017-12-14', 'DescribeInstanceBill', bill_params, retries=1)
             if bill_data and bill_data.get('Success'):
                 items = bill_data.get('Data', {}).get('Items', [])
                 bill_amount = sum(float(item.get('PretaxAmount', 0)) for item in items)
